@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const appointmentSchema = new mongoose.Schema({
     doctorName: {
@@ -45,4 +45,4 @@ appointmentSchema.virtual('id').get(function() {
     return this._id.toHexString();
 });
 
-module.exports = mongoose.model('Appointment', appointmentSchema);
+export default mongoose.model('Appointment', appointmentSchema);

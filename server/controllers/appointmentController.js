@@ -1,7 +1,7 @@
-const Appointment = require('../models/Appointment');
-const { sendEmail } = require('../services/emailService');
+import Appointment from '../models/Appointment.js';
+import { sendEmail } from '../services/emailService.js';
 
-exports.bookAppointment = async (req, res) => {
+export const bookAppointment = async (req, res) => {
     try {
         const { doctorName, patientName, patientEmail, gender, address, appointmentDate, appointmentTime } = req.body;
 

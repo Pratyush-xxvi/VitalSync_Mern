@@ -1,8 +1,8 @@
-const Appointment = require('../models/Appointment');
-const { sendEmail } = require('../services/emailService');
+import Appointment from '../models/Appointment.js';
+import { sendEmail } from '../services/emailService.js';
 
 // Get all appointments for admin dashboard
-exports.getAllAppointments = async (req, res) => {
+export const getAllAppointments = async (req, res) => {
     try {
         const appointments = await Appointment.find().sort({ createdAt: -1 });
         return res.status(200).json(appointments);
@@ -13,7 +13,7 @@ exports.getAllAppointments = async (req, res) => {
 };
 
 // Approve an appointment
-exports.approveAppointment = async (req, res) => {
+export const approveAppointment = async (req, res) => {
     try {
         const { id } = req.params;
         const appointment = await Appointment.findById(id);
@@ -41,7 +41,7 @@ exports.approveAppointment = async (req, res) => {
 };
 
 // Reject an appointment
-exports.rejectAppointment = async (req, res) => {
+export const rejectAppointment = async (req, res) => {
     try {
         const { id } = req.params;
         const appointment = await Appointment.findById(id);
@@ -69,7 +69,7 @@ exports.rejectAppointment = async (req, res) => {
 };
 
 // Reschedule an appointment
-exports.rescheduleAppointment = async (req, res) => {
+export const rescheduleAppointment = async (req, res) => {
     try {
         const { id } = req.params;
         const { newDate, newTime } = req.body;

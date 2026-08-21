@@ -1,6 +1,6 @@
-const axios = require('axios');
+import axios from 'axios';
 
-const sendEmail = async (to, subject, body) => {
+export const sendEmail = async (to, subject, body) => {
     console.log(`EMAIL_SERVICE: Attempting to send email to: ${to}`);
     const apiKey = process.env.BREVO_API_KEY;
 
@@ -36,8 +36,4 @@ const sendEmail = async (to, subject, body) => {
     } catch (error) {
         console.error(`EMAIL_SERVICE: FAILED to send email to: ${to}. Error: ${error.message}`);
     }
-};
-
-module.exports = {
-    sendEmail
 };

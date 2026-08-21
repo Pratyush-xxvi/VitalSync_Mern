@@ -1,12 +1,12 @@
-require('dotenv').config();
-const express = require('express');
-const cors = require('cors');
-const connectDB = require('./config/db');
-const seedAdmin = require('./config/seedAdmin');
+import 'dotenv/config';
+import express from 'express';
+import cors from 'cors';
+import connectDB from './config/db.js';
+import seedAdmin from './config/seedAdmin.js';
 
-const authRoutes = require('./routes/authRoutes');
-const appointmentRoutes = require('./routes/appointmentRoutes');
-const adminRoutes = require('./routes/adminRoutes');
+import authRoutes from './routes/authRoutes.js';
+import appointmentRoutes from './routes/appointmentRoutes.js';
+import adminRoutes from './routes/adminRoutes.js';
 
 const app = express();
 const PORT = process.env.PORT || 8081;

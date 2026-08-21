@@ -1,9 +1,9 @@
-const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'VitalSyncSuperSecretSigningKeyForJwtTokens2026Secure';
+export const JWT_SECRET = process.env.JWT_SECRET || 'VitalSyncSuperSecretSigningKeyForJwtTokens2026Secure';
 
 // Verify JWT token middleware
-const verifyToken = (req, res, next) => {
+export const verifyToken = (req, res, next) => {
     let token = req.headers['authorization'];
 
     if (!token) {
@@ -24,16 +24,10 @@ const verifyToken = (req, res, next) => {
 };
 
 // Admin role check middleware
-const isAdmin = (req, res, next) => {
+export const isAdmin = (req, res, next) => {
     if (req.user && req.user.roles && req.user.roles.includes('ROLE_ADMIN')) {
         next();
     } else {
         return res.status(403).json({ message: 'Require Admin Role!' });
     }
-};
-
-module.exports = {
-    verifyToken,
-    isAdmin,
-    JWT_SECRET
 };
