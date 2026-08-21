@@ -1,0 +1,34 @@
+services:
+  # Node.js Express MERN Backend Service
+  - type: web
+    name: vitalsync-backend
+    runtime: node
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    plan: free
+    region: oregon
+    envVars:
+      - key: PORT
+        value: 8081
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        value: VitalSyncSuperSecretSigningKeyForJwtTokens2026Secure
+      - key: BREVO_API_KEY
+        sync: false
+
+  # React Frontend Service (Free Render Static Site)
+  - type: web
+    name: vitalsync-frontend
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://vitalsync-backend-dwat.onrender.com
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

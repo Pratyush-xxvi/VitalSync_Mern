@@ -1,0 +1,36 @@
+<svg width="220" height="50" viewBox="0 0 220 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="vsGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563EB" />
+      <stop offset="50%" stop-color="#3B82F6" />
+      <stop offset="100%" stop-color="#06B6D4" />
+    </linearGradient>
+    <linearGradient id="vsPulseGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#60A5FA" />
+      <stop offset="100%" stop-color="#22D3EE" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#2563EB" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- Logo Icon Container -->
+  <g filter="url(#shadow)">
+    <!-- Outer Shield / Circle Base -->
+    <rect x="2" y="5" width="40" height="40" rx="12" fill="url(#vsGradient)" />
+    <!-- Pulse Line Inside Icon -->
+    <path d="M9 25H14L17 18L21 32L26 13L29 28L32 25H35" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Glowing Vital Dot -->
+    <circle cx="35" cy="25" r="2.5" fill="#22D3EE" />
+  </g>
+
+  <!-- Typography -->
+  <!-- "Vital" text -->
+  <text x="50" y="33" font-family="'Outfit', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-weight="800" font-size="25" fill="#0F172A" letter-spacing="-0.5">Vital</text>
+  
+  <!-- "Sync" text with cyan gradient accent -->
+  <text x="106" y="33" font-family="'Outfit', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-weight="700" font-size="25" fill="url(#vsGradient)" letter-spacing="-0.5">Sync</text>
+
+  <!-- Subtitle Tagline -->
+  <text x="51" y="43" font-family="'Outfit', 'Inter', system-ui, sans-serif" font-weight="600" font-size="7.5" fill="#64748B" letter-spacing="1.5">HEALTHCARE PLATFORM</text>
+</svg>
