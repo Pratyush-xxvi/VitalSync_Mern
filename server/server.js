@@ -11,12 +11,6 @@ import adminRoutes from './routes/adminRoutes.js';
 const app = express();
 const PORT = process.env.PORT || 8081;
 
-// Connect to MongoDB
-connectDB().then(() => {
-    // Seed default admin user if not exists
-    seedAdmin();
-});
-
 // Middleware
 app.use(cors({ origin: '*' }));
 app.use(express.json());
@@ -42,7 +36,17 @@ app.use((err, req, res, next) => {
     res.status(500).json({ message: "Internal Server Error", error: err.message });
 });
 
-// Start Server
-app.listen(PORT, () => {
-    console.log(`VitalSync Node.js/MERN Server running on port ${PORT}`);
-});
+// Connect to DB and Start Server
+const startServer = async () => {
+    try {
+        await connectDB();
+        await seedAdmin();
+        app.listen(PORT, () => {
+            console.log(`VitalSync Node.js/MERN Server running on port ${PORT}`);
+        });
+    } catch (error) {
+        console.error("Failed to start server:", error);
+    }
+};
+
+startServer();

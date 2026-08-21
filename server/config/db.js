@@ -2,8 +2,10 @@ import mongoose from 'mongoose';
 
 const connectDB = async () => {
     try {
-        const connStr = process.env.MONGODB_URI || 'mongodb://localhost:27017/vitalsync_db';
-        const conn = await mongoose.connect(connStr);
+        const connStr = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/vitalsync_db';
+        const conn = await mongoose.connect(connStr, {
+            serverSelectionTimeoutMS: 5000
+        });
         console.log(`MongoDB Connected: ${conn.connection.host}`);
     } catch (error) {
         console.error(`Error connecting to MongoDB: ${error.message}`);
