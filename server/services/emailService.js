@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const sendEmail = async (to, subject, body) => {
+export const sendEmail = async (to, subject, htmlContent, textContent = '') => {
     console.log(`EMAIL_SERVICE: Attempting to send email to: ${to}`);
     const apiKey = process.env.BREVO_API_KEY;
 
@@ -10,14 +10,17 @@ export const sendEmail = async (to, subject, body) => {
     }
 
     try {
+        const payload = {
+            sender: { name: 'VitalSync Healthcare', email: process.env.SENDER_EMAIL || '2610pratyush@gmail.com' },
+            to: [{ email: to }],
+            subject: subject,
+            htmlContent: htmlContent,
+            textContent: textContent || subject
+        };
+
         const response = await axios.post(
             'https://api.brevo.com/v3/smtp/email',
-            {
-                sender: { name: 'VitalSync', email: process.env.SENDER_EMAIL || '2610pratyush@gmail.com' },
-                to: [{ email: to }],
-                subject: subject,
-                textContent: body
-            },
+            payload,
             {
                 headers: {
                     'api-key': apiKey,
