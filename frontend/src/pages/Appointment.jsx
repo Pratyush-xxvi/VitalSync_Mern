@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { AppContext } from '../context/AppContext'
 import { assets } from '../assets/assets';
 import RelatedDoctors from '../components/RelatedDoctors';
@@ -7,7 +7,8 @@ import BookingForm from '../components/BookingForm.jsx';
 
 function Appointment() {
   const { docId } = useParams();
-  const { doctors, currencySymbol } = useContext(AppContext);
+  const navigate = useNavigate();
+  const { doctors, currencySymbol, token } = useContext(AppContext);
   const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
 
   const [docInfo, setDocInfo] = useState(null);
@@ -60,6 +61,19 @@ function Appointment() {
       getAvailableSlots()
     }
   }, [docInfo])
+
+  const handleBookClick = () => {
+    if (!token) {
+      alert("Please sign in or create an account to book an appointment.");
+      navigate('/login');
+      return;
+    }
+    if (!slotTime) {
+      alert("Please select an available time slot before proceeding.");
+      return;
+    }
+    setIsFormOpen(true);
+  };
 
   return docInfo ? (
     <div className='py-8 max-w-7xl mx-auto flex flex-col gap-10'>
@@ -162,7 +176,7 @@ function Appointment() {
 
         <div>
           <button
-            onClick={() => setIsFormOpen(true)}
+            onClick={handleBookClick}
             className='mt-4 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white text-sm font-bold px-10 py-3.5 rounded-full shadow-lg shadow-blue-500/20 hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 transform hover:-translate-y-0.5'
           >
             Book Appointment
