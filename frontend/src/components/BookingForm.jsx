@@ -33,6 +33,11 @@ export default function BookingForm({ onClose, docInfo, selectedDate, selectedTi
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!token) {
+      setError('Authentication required. Please sign in or create an account to book an appointment.');
+      return;
+    }
     
     // Check if a time is selected
     if (!selectedTime) {
