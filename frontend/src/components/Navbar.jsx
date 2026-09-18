@@ -94,11 +94,17 @@ const Navbar = () => {
                     {token ? (
                         <div className='flex items-center gap-2 cursor-pointer group relative py-1'>
                             <div className='flex items-center gap-2.5 bg-slate-50 hover:bg-slate-100 p-1.5 pr-3 rounded-full border border-slate-200 transition-all duration-200'>
-                                <img 
-                                    className='w-8 h-8 rounded-full bg-blue-100 object-cover ring-2 ring-blue-500/20' 
-                                    src={user?.image || assets.profile_pic} 
-                                    alt='User Profile' 
-                                />
+                                {user?.image ? (
+                                    <img 
+                                        className='w-8 h-8 rounded-full object-cover ring-2 ring-blue-500/20' 
+                                        src={user.image} 
+                                        alt='User Profile' 
+                                    />
+                                ) : (
+                                    <div className='w-8 h-8 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 text-white font-bold text-xs flex items-center justify-center ring-2 ring-blue-500/20'>
+                                        {(user?.name || 'U').charAt(0).toUpperCase()}
+                                    </div>
+                                )}
                                 <span className='hidden sm:inline font-semibold text-slate-700 text-xs max-w-[100px] truncate'>
                                     {user?.name || 'Account'}
                                 </span>

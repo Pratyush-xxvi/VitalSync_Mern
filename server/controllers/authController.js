@@ -65,10 +65,70 @@ export const login = async (req, res) => {
             id: user._id,
             name: user.name,
             email: user.email,
+            phone: user.phone || '',
+            address: user.address || '',
+            gender: user.gender || '',
+            dob: user.dob || '',
+            image: user.image || '',
             roles: user.roles
         });
     } catch (error) {
         console.error("Login error:", error);
+        return res.status(500).send("Error: " + error.message);
+    }
+};
+
+// Get User Profile
+export const getProfile = async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const user = await User.findById(userId).select('-password');
+        if (!user) {
+            return res.status(404).send("Error: User not found");
+        }
+        return res.status(200).json(user);
+    } catch (error) {
+        console.error("Get Profile Error:", error);
+        return res.status(500).send("Error: " + error.message);
+    }
+};
+
+// Update User Profile
+export const updateProfile = async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const { name, phone, address, gender, dob, image } = req.body;
+
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).send("Error: User not found");
+        }
+
+        if (name) user.name = name;
+        if (phone !== undefined) user.phone = phone;
+        if (address !== undefined) user.address = address;
+        if (gender !== undefined) user.gender = gender;
+        if (dob !== undefined) user.dob = dob;
+        if (image !== undefined) user.image = image;
+
+        await user.save();
+
+        return res.status(200).json({
+            message: "Profile updated successfully!",
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                phone: user.phone,
+                address: user.address,
+                gender: user.gender,
+                dob: user.dob,
+                image: user.image,
+                roles: user.roles
+            }
+        });
+    } catch (error) {
+        console.error("Update Profile Error:", error);
         return res.status(500).send("Error: " + error.message);
     }
 };
